@@ -1,7 +1,7 @@
-var world=require('./client/world');
+var world=require('./client/javascript/world');
 var settings=require('./settings');
-var game_settings=require('./client/settings');
-var car_descriptions=require('./client/car_descriptions');
+var game_settings=require('./client/javascript/settings');
+var car_descriptions=require('./client/javascript/car_descriptions');
 var TIMER_LASTCALL = null;
 var CALLBACKS = {};
 var CALLBACKS_LASTCALL = {};
@@ -536,8 +536,8 @@ exports.CombatServer=function(type){
             for(var i=0;i<fnames.length;i++){
                 fname=fnames[i];
                 levelname=fname.split('.')[0];
-                content=fs.read(fs.join(settings.LEVEL_DIRECTORY, fname), 'r');
-                content=content.slice(13,content.length-3);
+                content=fs.read(fs.join(settings.LEVEL_DIRECTORY, fname), 'r').trim();
+                content=content.slice(13,content.length-1);
                 this.levels[levelname]=JSON.parse(content);
             }
         }else if(this.type=='node'){
