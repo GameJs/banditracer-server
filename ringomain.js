@@ -10,8 +10,8 @@ app.mount("/", require("./actions"));
 var server;
 var cserver;
 var start = function() {
-   
-   
+
+
    // see https://gist.github.com/555596
    var context = server.getDefaultContext();
    cserver=new combatserver.CombatServer('ringo');
@@ -23,7 +23,7 @@ var start = function() {
       socket.onopen=function(){
          print('open');
       };
-      
+
       socket.onmessage = function(m) {
         // print("MESSAGE", m);
          var retv=cserver.handle(m, socket);
