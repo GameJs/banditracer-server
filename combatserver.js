@@ -1,7 +1,8 @@
-var world=require('./client/javascript/world');
+// FIXME ringojs require() broken for require('banditracer-client/world');
+var world=require('./banditracer-client/world');
 var settings=require('./settings');
-var game_settings=require('./client/javascript/settings');
-var car_descriptions=require('./client/javascript/car_descriptions');
+var game_settings=require('./banditracer-client/settings');
+var car_descriptions=require('./banditracer-client/car_descriptions');
 var TIMER_LASTCALL = null;
 var CALLBACKS = {};
 var CALLBACKS_LASTCALL = {};
@@ -506,6 +507,7 @@ exports.CombatServer=function(type){
             this.players[uid].update(msDuration);
         }
     };
+
 
     this.startTimer=function(){
         STARTTIME = Date.now();
