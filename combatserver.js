@@ -532,7 +532,7 @@ exports.CombatServer=function(type){
         if(this.type=='ringo'){
             var levels=require('./banditracer-client/levels').levels;
             for (var l in levels) {
-                this.levels[l] = levels[l];
+                this.levels[l] = levels[l].data;
             }
         }else if(this.type=='node'){
             var fnames=fs.readdirSync(settings.LEVEL_DIRECTORY);
