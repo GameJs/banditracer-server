@@ -530,17 +530,9 @@ exports.CombatServer=function(type){
 
     this.loadLevels=function(){
         if(this.type=='ringo'){
-
-            var fnames=fs.list(settings.LEVEL_DIRECTORY);
-            var levelname;
-            var fname;
-            var content;
-            for(var i=0;i<fnames.length;i++){
-                fname=fnames[i];
-                levelname=fname.split('.')[0];
-                content=fs.read(fs.join(settings.LEVEL_DIRECTORY, fname), 'r').trim();
-                content=content.slice(13,content.length-1);
-                this.levels[levelname]=JSON.parse(content);
+            var levels=require('./banditracer-client/levels').levels;
+            for (var l in levels) {
+                this.levels[l] = levels[l];
             }
         }else if(this.type=='node'){
             var fnames=fs.readdirSync(settings.LEVEL_DIRECTORY);
