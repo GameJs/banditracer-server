@@ -3,6 +3,9 @@ var world=require('./banditracer-client/world');
 var settings=require('./settings');
 var game_settings=require('./banditracer-client/settings');
 var car_descriptions=require('./banditracer-client/car_descriptions');
+try {
+    var log = require('ringo/logging').getLogger(module.id);
+} catch(e) {};
 var TIMER_LASTCALL = null;
 var CALLBACKS = {};
 var CALLBACKS_LASTCALL = {};
@@ -520,34 +523,20 @@ exports.CombatServer=function(type){
 
     };
 
-    this.log=function(msg){
+    this.log=function(){
+        var msg = Array.prototype.slice.apply(arguments).join(' ');
         if(this.type=='ringo'){
-            print(msg);
+            log.info(msg);
         }else if (this.type=='node'){
             console.log(((new Date())+'').substr(0, 25)+msg);
         }
     }
 
     this.loadLevels=function(){
-        if(this.type=='ringo'){
-            var levels=require('./banditracer-client/levels').levels;
-            for (var l in levels) {
-                this.levels[l] = levels[l].data;
-            }
-        }else if(this.type=='node'){
-            var fnames=fs.readdirSync(settings.LEVEL_DIRECTORY);
-            var levelname;
-            var fname;
-            var content;
-            for(var i=0;i<fnames.length;i++){
-                fname=fnames[i];
-                levelname=fname.split('.')[0];
-                content=fs.readFileSync(settings.LEVEL_DIRECTORY+'/'+fname, 'utf-8');
-                content=content.slice(13,content.length-3);
-                this.levels[levelname]=JSON.parse(content);
-            }
+        var levels=require(settings.LEVEL_DIRECTORY).levels;
+        for (var l in levels) {
+            this.levels[l] = levels[l].data;
         }
-
     };
 
 
